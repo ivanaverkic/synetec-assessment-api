@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using Business.Services.Interfaces;
+﻿using Business.Services.Interfaces;
 using Data;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Business.Services
@@ -28,11 +28,17 @@ namespace Business.Services
                 .ToListAsync();
         }
 
-        public async Task<Employee> GetEmployeeById(int selectedEmployeeId)
+        public async Task<Employee> GetEmployeeByIdAsync(int selectedEmployeeId)
         {
             return await _dbContext.Employees
                 .Include(e => e.Department)
                 .FirstOrDefaultAsync(item => item.Id == selectedEmployeeId);
+        }
+
+        public async Task<int> GetEmployeeSalarySumAsync()
+        {
+            var employees = await _dbContext.Employees.ToListAsync();
+            return employees.Sum(item => item.Salary);
         }
     }
 }

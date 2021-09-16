@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using Business.Dtos;
+﻿using Business.Dtos;
 using Business.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SynetecAssessmentApi.Controllers
