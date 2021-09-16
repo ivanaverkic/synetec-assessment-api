@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SynetecAssessmentApi.Domain
+namespace Data.Models
 {
     public class Employee : Entity
     {
@@ -10,12 +10,7 @@ namespace SynetecAssessmentApi.Domain
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
 
-        public Employee(
-            int id,
-            string fullname,
-            string jobTitle,
-            int salary,
-            int departmentId) :base(id)
+        public Employee(int id, string fullname, string jobTitle, int salary, int departmentId) : base(id)
         {
             Id = id;
             Fullname = fullname;

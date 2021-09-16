@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SynetecAssessmentApi.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SynetecAssessmentApi.Persistence
+namespace Data
 {
     public class DbContextGenerator
     {

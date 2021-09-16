@@ -1,3 +1,5 @@
+using Business.Mappings;
+using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SynetecAssessmentApi.Persistence;
+using SynetecAssessmentApi.Extensions;
 
 namespace SynetecAssessmentApi
 {
@@ -22,6 +24,10 @@ namespace SynetecAssessmentApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.ConfigureBusinessServices();
+            services.AddAutoMapper(typeof(MappingProfile));
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SynetecAssessmentApi", Version = "v1" });
@@ -29,6 +35,7 @@ namespace SynetecAssessmentApi
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "HrDb"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

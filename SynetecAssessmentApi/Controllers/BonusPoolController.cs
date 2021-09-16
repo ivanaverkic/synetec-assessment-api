@@ -1,29 +1,36 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SynetecAssessmentApi.Dtos;
-using SynetecAssessmentApi.Services;
+﻿using AutoMapper;
+using Business.Dtos;
+using Business.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SynetecAssessmentApi.Controllers
 {
     [Route("api/[controller]")]
-    public class BonusPoolController : Controller
+    [ApiController]
+    public class BonusPoolController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var bonusPoolService = new BonusPoolService();
+        private readonly IBonusPoolService service;
 
-            return Ok(await bonusPoolService.GetEmployeesAsync());
+        public BonusPoolController(IBonusPoolService service)
+        {
+            this.service = service;
         }
 
-        [HttpPost()]
+        [HttpPost("CalculateBonus")]
         public async Task<IActionResult> CalculateBonus([FromBody] CalculateBonusDto request)
         {
-            var bonusPoolService = new BonusPoolService();
+            if (request.SelectedEmployeeId == 0)
+            {
+                return BadRequest("You have not specified a SelectedEmployeeId, please define the SelectedEmployeeId.");
+            }
 
-            return Ok(await bonusPoolService.CalculateAsync(
-                request.TotalBonusPoolAmount,
-                request.SelectedEmployeeId));
+            var entities = await service.CalculateAsync(request);
+
+            return entities == null ? BadRequest(
+                $"The employee with SelectedEmployeeId {request.SelectedEmployeeId} has not been found, please defina an existing SelectedEmployeeId.")
+                : Ok(entities);
         }
     }
 }

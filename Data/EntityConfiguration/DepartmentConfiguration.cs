@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SynetecAssessmentApi.Domain;
 
-namespace SynetecAssessmentApi.Persistence.EntityConfiguration
+namespace Data.EntityConfiguration
 {
     public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
     {
