@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Data.Models
+﻿namespace Data.Models
 {
     public class Employee : Entity
     {
