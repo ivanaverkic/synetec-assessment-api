@@ -18,13 +18,12 @@ namespace Business.Services
 
         public async Task<BonusPoolCalculatorResultDto> CalculateAsync(CalculateBonusDto calculateBonus)
         {
-            //load the details of the selected employee using the Id
             var employee = await employeeService.GetEmployeeByIdAsync(calculateBonus.SelectedEmployeeId);
             var employeeMapped = mapper.Map<EmployeeDto>(employee);
 
             if (employeeMapped != null)
             {
-                int bonusAllocation = await CalculateBonusAllocation(employeeMapped.Salary, calculateBonus.TotalBonusPoolAmount);
+                int bonusAllocation = await GetBonusAllocation(employeeMapped.Salary, calculateBonus.TotalBonusPoolAmount);
 
                 return new BonusPoolCalculatorResultDto
                 {
@@ -35,12 +34,10 @@ namespace Business.Services
             return null;
         }
 
-        public async Task<int> CalculateBonusAllocation(int salary, int totalBonusPool)
+        private async Task<int> GetBonusAllocation(int salary, int totalBonusPool)
         {
-            //get the total salary budget for the company
             int totalSalary = await employeeService.GetEmployeeSalarySumAsync();
 
-            //calculate the bonus allocation for the employee
             decimal bonusPercentage = (decimal)salary / (decimal)totalSalary;
             return (int)(bonusPercentage * totalBonusPool);
         }

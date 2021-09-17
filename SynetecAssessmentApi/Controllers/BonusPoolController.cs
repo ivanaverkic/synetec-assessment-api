@@ -19,15 +19,10 @@ namespace SynetecAssessmentApi.Controllers
         [HttpPost("CalculateBonus")]
         public async Task<IActionResult> CalculateBonus([FromBody] CalculateBonusDto request)
         {
-            if (request.SelectedEmployeeId == 0)
-            {
-                return BadRequest("You have not specified a SelectedEmployeeId, please define the SelectedEmployeeId.");
-            }
-
             var entities = await service.CalculateAsync(request);
 
             return entities == null ? BadRequest(
-                $"The employee with SelectedEmployeeId {request.SelectedEmployeeId} has not been found, please defina an existing SelectedEmployeeId.")
+                $"The employee with SelectedEmployeeId {request.SelectedEmployeeId} has not been found, please define an existing SelectedEmployeeId.")
                 : Ok(entities);
         }
     }
