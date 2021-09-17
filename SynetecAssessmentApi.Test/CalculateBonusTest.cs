@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SynetecAssessmentApi.Controllers;
-using System;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 using Xunit;
 
 namespace SynetecAssessmentApi.Test
